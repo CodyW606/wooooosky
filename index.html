@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOOOOOSKY BOURBON</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+        :root {
+            --gold: #D4AF37;
+            --dark-grey: #1A1A1A;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: var(--dark-grey);
+            color: white;
+        }
+
+        .logo-container {
+            width: 200px;
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+        }
+
+        .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .age-verify {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .gold-button {
+            background-color: var(--gold);
+            color: black;
+            transition: all 0.3s ease;
+        }
+
+        .gold-button:hover {
+            background-color: #B4941F;
+        }
+
+        .content {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Age Verification Overlay -->
+    <div id="ageVerification" class="age-verify fixed inset-0 flex items-center justify-center z-50">
+        <div class="bg-black p-8 rounded-lg max-w-md w-full mx-4 text-center border border-gold">
+            <div class="flex justify-between items-center mb-8">
+                <img src="/api/placeholder/200/100" alt="Wooooosky Logo" class="w-24">
+                <h1 class="brand-name text-3xl font-bold">WOOOOOSKY BOURBON</h1>
+            </div>
+            <h2 class="text-xl mb-6">PLEASE VERIFY YOUR AGE</h2>
+            <form id="ageForm" class="space-y-4">
+                <input type="number" id="age" required
+                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-gold focus:outline-none"
+                    placeholder="Enter your age">
+                <button type="submit" 
+                    class="gold-button px-8 py-2 rounded font-bold w-full">
+                    ENTER
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="content">
+        <!-- Navigation -->
+        <nav class="bg-black p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <img src="/api/placeholder/200/100" alt="Wooooosky Logo" class="w-24">
+                <div class="space-x-8">
+                    <a href="#" class="nav-link">HOME</a>
+                    <a href="#" class="nav-link">ABOUT</a>
+                    <a href="#" class="nav-link">WHERE TO BUY</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home Page Content -->
+        <main class="container mx-auto mt-16 px-4">
+            <h1 class="brand-name text-6xl font-bold mb-8">Welcome to Wooooosky</h1>
+            <p class="text-xl max-w-2xl">Experience the finest bourbon crafted with precision and passion. 
+            Each bottle tells a story of tradition, excellence, and the pursuit of perfection.</p>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('ageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const age = parseInt(document.getElementById('age').value);
+            
+            if (age >= 21) {
+                document.getElementById('ageVerification').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                alert('You must be 21 or older to enter this site.');
+            }
+        });
+    </script>
+</body>
+</html>
