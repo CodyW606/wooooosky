@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOOOOOSKY BOURBON - Where to Buy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;700&display=swap');
+
+        :root {
+            --gold: #FFD700;
+            --dark-grey: #1A1A1A;
+        }
+
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: var(--dark-grey);
+            color: white;
+        }
+
+        .brand-name {
+            color: var(--gold);
+        }
+
+        .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .logo {
+            max-width: 300px;
+            height: auto;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .location-card {
+            border: 1px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+
+            .mobile-menu-items {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 200px;
+                background-color: black;
+                padding: 0.5rem;
+                border: 1px solid var(--gold);
+                z-index: 50;
+            }
+
+            .mobile-menu-items.active {
+                display: block;
+            }
+
+            .mobile-menu-items a {
+                display: block;
+                padding: 0.75rem 1rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .mobile-menu-items a:last-child {
+                border-bottom: none;
+            }
+            
+            .logo {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-black p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="images/logo.png" alt="Wooooosky Logo" class="w-32">
+            
+            <!-- Desktop Menu -->
+            <div class="desktop-menu space-x-8">
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <a href="where-to-buy.html" class="nav-link">WHERE TO BUY</a>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu relative">
+                <button id="menuButton" class="text-white p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div id="mobileMenuItems" class="mobile-menu-items">
+                    <a href="index.html" class="nav-link block py-2">HOME</a>
+                    <a href="about.html" class="nav-link block py-2">ABOUT</a>
+                    <a href="where-to-buy.html" class="nav-link block py-2">WHERE TO BUY</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-16 px-4">
+        <h1 class="brand-name text-4xl md:text-6xl font-bold mb-12 text-center">Where to Buy</h1>
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-2xl brand-name mb-4">Coming to Select Retailers in 2025</p>
+                <p class="text-lg">Stay tuned for location announcements</p>
+            </div>
+
+            <!-- Placeholder for future locations -->
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="location-card p-6 rounded">
+                    <h3 class="text-xl mb-2">[Location Name]</h3>
+                    <p>[Address]</p>
+                    <p>[City, State ZIP]</p>
+                    <p class="mt-2">[Phone]</p>
+                </div>
+                <!-- Add more location cards as needed -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Trademark Notice -->
+    <footer class="fixed bottom-0 w-full p-4 text-center bg-black bg-opacity-80" style="color: #B4941F;">
+        <p class="text-xs md:text-sm">Wooooosky is a registered trademark and property of Ric Flair & Stone Camp Distribution. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Handle mobile menu toggle
+        document.getElementById('menuButton').addEventListener('click', function() {
+            document.getElementById('mobileMenuItems').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenuItems');
+            const menuButton = document.getElementById('menuButton');
+            if (!menuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -79,10 +79,12 @@
                 display: none;
                 position: absolute;
                 top: 100%;
-                left: 0;
                 right: 0;
+                width: 200px;
                 background-color: black;
-                padding: 1rem;
+                padding: 0.5rem;
+                border: 1px solid var(--gold);
+                z-index: 50;
             }
 
             .mobile-menu-items.active {
@@ -91,8 +93,17 @@
 
             .mobile-menu-items a {
                 display: block;
-                padding: 0.5rem 0;
+                padding: 0.75rem 1rem;
                 text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .mobile-menu-items a:last-child {
+                border-bottom: none;
+            }
+            
+            .logo {
+                max-width: 200px;
             }
         }
     </style>
@@ -148,9 +159,9 @@
                 
                 <!-- Desktop Menu -->
                 <div class="desktop-menu space-x-8">
-                    <a href="#" class="nav-link">HOME</a>
-                    <a href="#" class="nav-link">ABOUT</a>
-                    <a href="#" class="nav-link">WHERE TO BUY</a>
+                    <a href="index.html" class="nav-link">HOME</a>
+                    <a href="about.html" class="nav-link">ABOUT</a>
+                    <a href="where-to-buy.html" class="nav-link">WHERE TO BUY</a>
                 </div>
 
                 <!-- Mobile Menu -->
@@ -161,9 +172,9 @@
                         </svg>
                     </button>
                     <div id="mobileMenuItems" class="mobile-menu-items">
-                        <a href="#" class="nav-link">HOME</a>
-                        <a href="#" class="nav-link">ABOUT</a>
-                        <a href="#" class="nav-link">WHERE TO BUY</a>
+                        <a href="index.html" class="nav-link block py-2">HOME</a>
+                        <a href="about.html" class="nav-link block py-2">ABOUT</a>
+                        <a href="where-to-buy.html" class="nav-link block py-2">WHERE TO BUY</a>
                     </div>
                 </div>
             </div>
