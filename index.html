@@ -185,23 +185,32 @@
         // Calculate age from date
         function calculateAge(birthDate) {
             const today = new Date();
-            // Convert birthDate string to Date object, ensuring we use UTC to avoid timezone issues
-            const [year, month, day] = birthDate.split('-');
-            const birth = new Date(Date.UTC(year, month - 1, day));
             
-            // Calculate age
-            let age = today.getFullYear() - birth.getFullYear();
+            // Parse the birth date components
+            const [year, month, day] = birthDate.split('-').map(Number);
+            
+            // Create date objects for comparison
+            const birthDateObj = new Date(year, month - 1, day); // month is 0-based in JS
+            
+            // Calculate the difference in years
+            let age = today.getFullYear() - birthDateObj.getFullYear();
+            
+            // Check if birthday hasn't occurred this year
+            const birthMonth = birthDateObj.getMonth();
+            const currentMonth = today.getMonth();
+            const birthDay = birthDateObj.getDate();
+            const currentDay = today.getDate();
             
             // Adjust age if birthday hasn't occurred this year
-            const monthDiff = today.getMonth() - (birth.getMonth());
-            const dayDiff = today.getDate() - birth.getDate();
-            
-            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            if (currentMonth < birthMonth || 
+                (currentMonth === birthMonth && currentDay < birthDay)) {
                 age--;
             }
             
-            console.log('Birth date:', birth);
-            console.log('Calculated age:', age);
+            // Debug logging
+            console.log('Today:', today.toISOString());
+            console.log('Birth date:', birthDateObj.toISOString());
+            console.log('Age calculated:', age);
             
             return age;
         }
@@ -231,7 +240,9 @@
             const birthDate = `${year}-${month}-${day}`;
             const age = calculateAge(birthDate);
             
+            console.log('Checking age:', age);
             if (age >= 21) {
+                console.log('Access granted: User is 21 or older');
                 document.getElementById('ageVerification').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
             } else {
