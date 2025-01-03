@@ -17,6 +17,9 @@
             font-family: 'Cinzel', serif;
             background-color: var(--dark-grey);
             color: white;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
         }
 
         .brand-name {
@@ -32,13 +35,34 @@
             color: var(--gold);
         }
 
-        .logo {
-            max-width: 300px;
-            height: auto;
-        }
-
         .mobile-menu {
             display: none;
+        }
+
+        .mobile-menu-items {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: black;
+            padding: 0.5rem;
+            border: 1px solid var(--gold);
+            z-index: 1000;
+        }
+
+        .mobile-menu-items.active {
+            display: block;
+        }
+
+        .content-section {
+            border: 1px solid var(--gold);
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
@@ -47,22 +71,6 @@
             }
             
             .mobile-menu {
-                display: block;
-            }
-
-            .mobile-menu-items {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                width: 200px;
-                background-color: black;
-                padding: 0.5rem;
-                border: 1px solid var(--gold);
-                z-index: 50;
-            }
-
-            .mobile-menu-items.active {
                 display: block;
             }
 
@@ -76,20 +84,16 @@
             .mobile-menu-items a:last-child {
                 border-bottom: none;
             }
-            
-            .logo {
-                max-width: 200px;
-            }
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
     <!-- Navigation -->
     <nav class="bg-black p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html">
-    <img src="images/logo.png" alt="Wooooosky Logo" class="w-32">
-</a>
+                <img src="images/logo.png" alt="Wooooosky Logo" class="w-32">
+            </a>
             
             <!-- Desktop Menu -->
             <div class="desktop-menu space-x-8">
@@ -116,17 +120,27 @@
 
     <!-- Main Content -->
     <main class="container mx-auto mt-16 px-4">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="brand-name text-4xl md:text-6xl font-bold mb-8 text-center">About Wooooosky</h1>
-            <div class="space-y-6 text-lg">
-                <p class="mb-4">
-                    The signature Rolex of the diamond ring wearing, kiss stealing, wheeling & dealing son of a gun! 
+        <h1 class="brand-name text-4xl md:text-6xl font-bold mb-12 text-center">About Wooooosky</h1>
+        
+        <div class="max-w-4xl mx-auto grid gap-8 md:gap-12">
+            <div class="content-section p-6 rounded-lg">
+                <h2 class="text-2xl md:text-3xl brand-name mb-4">Our Story</h2>
+                <p class="text-lg leading-relaxed">
+                    Try the signature bourbon of wrestling legend Ric Flair - WOOOOOSKY - a bourbon that embodies the spirit of excellence and showmanship. Coming in 2025, this premium bourbon will redefine what it means to style and profile.
                 </p>
-                <p class="mb-4">
-                    The product is made of.......
+            </div>
+
+            <div class="content-section p-6 rounded-lg">
+                <h2 class="text-2xl md:text-3xl brand-name mb-4">The Spirit</h2>
+                <p class="text-lg leading-relaxed">
+                    Every bottle of WOOOOOSKY represents the pinnacle of craftsmanship, blending tradition with the unmistakable Flair that only the Nature Boy could bring to bourbon. Carefully aged and meticulously crafted to be as legendary as its namesake.
                 </p>
-                <p class="mb-4">
-                    [Any special features or unique aspects of your bourbon]
+            </div>
+
+            <div class="content-section p-6 rounded-lg">
+                <h2 class="text-2xl md:text-3xl brand-name mb-4">The Legacy</h2>
+                <p class="text-lg leading-relaxed">
+                    WOOOOOSKY isn't just another bourbon - it's a celebration of the greatest of all time, a toast to the lifestyle, and a tribute to those who dare to follow in the footsteps of the Greatest of All Time. Join us in 2025 for the most anticipated bourbon launch in history.
                 </p>
             </div>
         </div>
@@ -139,7 +153,8 @@
 
     <script>
         // Handle mobile menu toggle
-        document.getElementById('menuButton').addEventListener('click', function() {
+        document.getElementById('menuButton').addEventListener('click', function(e) {
+            e.stopPropagation();
             document.getElementById('mobileMenuItems').classList.toggle('active');
         });
 

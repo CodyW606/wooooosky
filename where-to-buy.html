@@ -17,6 +17,9 @@
             font-family: 'Cinzel', serif;
             background-color: var(--dark-grey);
             color: white;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
         }
 
         .brand-name {
@@ -32,23 +35,29 @@
             color: var(--gold);
         }
 
-        .logo {
-            max-width: 300px;
-            height: auto;
-        }
-
         .mobile-menu {
             display: none;
         }
 
-        .location-card {
+        .mobile-menu-items {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: black;
+            padding: 0.5rem;
             border: 1px solid var(--gold);
-            transition: all 0.3s ease;
+            z-index: 1000;
         }
 
-        .location-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .mobile-menu-items.active {
+            display: block;
+        }
+
+        .coming-soon {
+            border: 2px solid var(--gold);
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -57,22 +66,6 @@
             }
             
             .mobile-menu {
-                display: block;
-            }
-
-            .mobile-menu-items {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                width: 200px;
-                background-color: black;
-                padding: 0.5rem;
-                border: 1px solid var(--gold);
-                z-index: 50;
-            }
-
-            .mobile-menu-items.active {
                 display: block;
             }
 
@@ -86,20 +79,16 @@
             .mobile-menu-items a:last-child {
                 border-bottom: none;
             }
-            
-            .logo {
-                max-width: 200px;
-            }
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
     <!-- Navigation -->
     <nav class="bg-black p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html">
-    <img src="images/logo.png" alt="Wooooosky Logo" class="w-32">
-</a>
+                <img src="images/logo.png" alt="Wooooosky Logo" class="w-32">
+            </a>
             
             <!-- Desktop Menu -->
             <div class="desktop-menu space-x-8">
@@ -129,20 +118,21 @@
         <h1 class="brand-name text-4xl md:text-6xl font-bold mb-12 text-center">Where to Buy</h1>
         
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="text-2xl brand-name mb-4">Coming to Select Retailers in 2025</p>
-                <p class="text-lg">Stay tuned for location announcements</p>
+            <div class="coming-soon p-8 md:p-12 rounded-lg text-center mb-12">
+                <h2 class="text-3xl md:text-4xl brand-name mb-6">Coming in 2025</h2>
+                <p class="text-xl md:text-2xl mb-4">Get ready to experience greatness</p>
+                <p class="text-lg md:text-xl opacity-80">Stay tuned for location announcements</p>
             </div>
 
-            <!-- Placeholder for future locations -->
-            <div class="grid md:grid-cols-2 gap-6 mt-8">
-                <div class="location-card p-6 rounded">
-                    <h3 class="text-xl mb-2">[Location Name]</h3>
-                    <p>[Address]</p>
-                    <p>[City, State ZIP]</p>
-                    <p class="mt-2">[Phone]</p>
+            <div class="grid md:grid-cols-2 gap-8 mt-12 text-center">
+                <div class="p-6">
+                    <h3 class="text-2xl brand-name mb-4">Distribution</h3>
+                    <p class="text-lg">Coming to select retailers and fine establishments across the country</p>
                 </div>
-                <!-- Add more location cards as needed -->
+                <div class="p-6">
+                    <h3 class="text-2xl brand-name mb-4">Updates</h3>
+                    <p class="text-lg">Check back for our list of authorized retailers and availability updates</p>
+                </div>
             </div>
         </div>
     </main>
@@ -154,7 +144,8 @@
 
     <script>
         // Handle mobile menu toggle
-        document.getElementById('menuButton').addEventListener('click', function() {
+        document.getElementById('menuButton').addEventListener('click', function(e) {
+            e.stopPropagation();
             document.getElementById('mobileMenuItems').classList.toggle('active');
         });
 
