@@ -6,32 +6,26 @@
     <title>WOOOOOSKY BOURBON</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
 
         :root {
-            --gold: #D4AF37;
+            --gold: #FFD700;
             --dark-grey: #1A1A1A;
         }
 
         body {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cinzel', serif;
             background-color: var(--dark-grey);
             color: white;
         }
 
-        .logo-container {
-            width: 200px;
-        }
-
         .brand-name {
-            font-family: 'Cinzel', serif;
             color: var(--gold);
         }
 
         .nav-link {
             color: white;
             transition: color 0.3s ease;
-            font-family: 'Cinzel', serif;
         }
 
         .nav-link:hover {
@@ -39,7 +33,7 @@
         }
 
         .age-verify {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
         }
 
         .gold-button {
@@ -49,29 +43,66 @@
         }
 
         .gold-button:hover {
-            background-color: #B4941F;
+            background-color: #E6C200;
         }
 
         .content {
             display: none;
+        }
+
+        .logo {
+            max-width: 300px;
+            height: auto;
+        }
+
+        select {
+            background-color: #1A1A1A;
+            border: 1px solid var(--gold);
+            color: white;
+        }
+
+        select:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        option {
+            background-color: #1A1A1A;
+            color: white;
         }
     </style>
 </head>
 <body class="min-h-screen">
     <!-- Age Verification Overlay -->
     <div id="ageVerification" class="age-verify fixed inset-0 flex items-center justify-center z-50">
-        <div class="bg-black p-8 rounded-lg max-w-md w-full mx-4 text-center border border-gold">
-            <div class="flex justify-between items-center mb-8">
-                <img src="/api/placeholder/200/100" alt="Wooooosky Logo" class="w-24">
-                <h1 class="brand-name text-3xl font-bold">WOOOOOSKY BOURBON</h1>
-            </div>
+        <div class="bg-black p-8 rounded-lg max-w-md w-full mx-4 text-center border-2" style="border-color: var(--gold)">
+            <img src="images/logo.png" alt="Wooooosky Logo" class="mx-auto mb-6 logo">
             <h2 class="text-xl mb-6">PLEASE VERIFY YOUR AGE</h2>
             <form id="ageForm" class="space-y-4">
-                <input type="number" id="age" required
-                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:border-gold focus:outline-none"
-                    placeholder="Enter your age">
-                <button type="submit" 
-                    class="gold-button px-8 py-2 rounded font-bold w-full">
+                <div class="flex space-x-2">
+                    <select id="month" required class="w-1/3 px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:outline-none">
+                        <option value="">Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select id="day" required class="w-1/3 px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:outline-none">
+                        <option value="">Day</option>
+                    </select>
+                    <select id="year" required class="w-1/3 px-4 py-2 bg-gray-800 border border-gray-600 rounded focus:outline-none">
+                        <option value="">Year</option>
+                    </select>
+                </div>
+                <button type="submit" class="gold-button px-8 py-2 rounded font-bold w-full">
                     ENTER
                 </button>
             </form>
@@ -83,7 +114,7 @@
         <!-- Navigation -->
         <nav class="bg-black p-4">
             <div class="container mx-auto flex justify-between items-center">
-                <img src="/api/placeholder/200/100" alt="Wooooosky Logo" class="w-24">
+                <img src="images/logo.png" alt="Wooooosky Logo" class="w-32">
                 <div class="space-x-8">
                     <a href="#" class="nav-link">HOME</a>
                     <a href="#" class="nav-link">ABOUT</a>
@@ -93,17 +124,102 @@
         </nav>
 
         <!-- Home Page Content -->
-        <main class="container mx-auto mt-16 px-4">
-            <h1 class="brand-name text-6xl font-bold mb-8">Welcome to Wooooosky</h1>
-            <p class="text-xl max-w-2xl">Experience the finest bourbon crafted with precision and passion. 
-            Each bottle tells a story of tradition, excellence, and the pursuit of perfection.</p>
+        <main class="container mx-auto mt-16 px-4 text-center">
+            <img src="images/logo.png" alt="Wooooosky Logo" class="mx-auto mb-12 logo">
+            <h1 class="brand-name text-6xl font-bold mb-8">COMING IN 2025...</h1>
+            <h2 class="brand-name text-8xl font-bold">WOOOOO!</h2>
         </main>
     </div>
 
     <script>
+        // Populate days based on month
+        function updateDays() {
+            const month = parseInt(document.getElementById('month').value);
+            const daySelect = document.getElementById('day');
+            const selectedDay = daySelect.value;
+            const year = parseInt(document.getElementById('year').value);
+            
+            // Clear existing options
+            daySelect.innerHTML = '<option value="">Day</option>';
+            
+            if (month) {
+                let daysInMonth = 31;
+                if ([4, 6, 9, 11].includes(month)) {
+                    daysInMonth = 30;
+                } else if (month === 2) {
+                    daysInMonth = year && isLeapYear(year) ? 29 : 28;
+                }
+                
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i;
+                    daySelect.appendChild(option);
+                }
+                
+                if (selectedDay && selectedDay <= daysInMonth) {
+                    daySelect.value = selectedDay;
+                }
+            }
+        }
+
+        // Check if year is leap year
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        // Populate years (100 years back from current year)
+        function populateYears() {
+            const yearSelect = document.getElementById('year');
+            const currentYear = new Date().getFullYear();
+            const startYear = currentYear - 100;
+            
+            for (let year = currentYear; year >= startYear; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+
+        // Calculate age from date
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            populateYears();
+            
+            // Add event listeners for month and year changes
+            document.getElementById('month').addEventListener('change', updateDays);
+            document.getElementById('year').addEventListener('change', updateDays);
+        });
+
+        // Form submission
         document.getElementById('ageForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const age = parseInt(document.getElementById('age').value);
+            
+            const month = document.getElementById('month').value;
+            const day = document.getElementById('day').value;
+            const year = document.getElementById('year').value;
+            
+            if (!month || !day || !year) {
+                alert('Please select a complete birth date.');
+                return;
+            }
+            
+            const birthDate = `${year}-${month}-${day}`;
+            const age = calculateAge(birthDate);
             
             if (age >= 21) {
                 document.getElementById('ageVerification').style.display = 'none';
