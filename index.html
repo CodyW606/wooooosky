@@ -185,13 +185,23 @@
         // Calculate age from date
         function calculateAge(birthDate) {
             const today = new Date();
-            const birth = new Date(birthDate);
-            let age = today.getFullYear() - birth.getFullYear();
-            const monthDiff = today.getMonth() - birth.getMonth();
+            // Convert birthDate string to Date object, ensuring we use UTC to avoid timezone issues
+            const [year, month, day] = birthDate.split('-');
+            const birth = new Date(Date.UTC(year, month - 1, day));
             
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            // Calculate age
+            let age = today.getFullYear() - birth.getFullYear();
+            
+            // Adjust age if birthday hasn't occurred this year
+            const monthDiff = today.getMonth() - (birth.getMonth());
+            const dayDiff = today.getDate() - birth.getDate();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
                 age--;
             }
+            
+            console.log('Birth date:', birth);
+            console.log('Calculated age:', age);
             
             return age;
         }
