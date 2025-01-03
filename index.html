@@ -17,13 +17,9 @@
             font-family: 'Cinzel', serif;
             background-color: var(--dark-grey);
             color: white;
-        }
-
-        .remember-me-text {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px; /* Space for footer */
         }
 
         .brand-name {
@@ -62,8 +58,31 @@
             height: auto;
         }
 
+        .remember-me-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
         .mobile-menu {
             display: none;
+        }
+
+        .mobile-menu-items {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: black;
+            padding: 0.5rem;
+            border: 1px solid var(--gold);
+            z-index: 1000;
+        }
+
+        .mobile-menu-items.active {
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -72,22 +91,6 @@
             }
             
             .mobile-menu {
-                display: block;
-            }
-
-            .mobile-menu-items {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                width: 200px;
-                background-color: black;
-                padding: 0.5rem;
-                border: 1px solid var(--gold);
-                z-index: 50;
-            }
-
-            .mobile-menu-items.active {
                 display: block;
             }
 
@@ -105,11 +108,20 @@
             .logo {
                 max-width: 200px;
             }
+
+            .main-heading {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+
+            .sub-heading {
+                font-size: 3rem !important;
+                line-height: 1.2 !important;
+            }
         }
     </style>
-    </style>
 </head>
-<body class="min-h-screen">
+<body>
     <!-- Age Verification Overlay -->
     <div id="ageVerification" class="age-verify fixed inset-0 flex items-center justify-center z-50">
         <div class="bg-black p-8 rounded-lg max-w-md w-full mx-4 text-center border-2" style="border-color: var(--gold)">
@@ -147,6 +159,10 @@
                     ENTER
                 </button>
             </form>
+            <!-- Trademark in age verification -->
+            <div class="mt-8 text-center" style="color: #B4941F;">
+                <p class="text-xs">Wooooosky is a registered trademark and property of Ric Flair & Stone Camp Distribution. All Rights Reserved.</p>
+            </div>
         </div>
     </div>
 
@@ -181,14 +197,15 @@
         </nav>
 
         <!-- Home Page Content -->
-        <main class="container mx-auto mt-16 px-4 text-center">
+        <main class="container mx-auto mt-16 px-4 text-center pb-16">
             <img src="images/logo.png" alt="Wooooosky Logo" class="mx-auto mb-12 logo">
-            <h1 class="brand-name text-6xl font-bold mb-8">COMING IN 2025...</h1>
-            <h2 class="brand-name text-8xl font-bold">WOOOOO!</h2>
+            <h1 class="brand-name text-4xl md:text-6xl font-bold mb-8 main-heading">COMING IN 2025...</h1>
+            <h2 class="brand-name text-5xl md:text-8xl font-bold sub-heading">WOOOOO!</h2>
         </main>
+
         <!-- Trademark Notice -->
-        <footer class="fixed bottom-0 w-full p-4 text-center" style="color: #B4941F;">
-            <p class="text-sm">Wooooosky is a registered trademark and property of Ric Flair & Stone Camp Distribution. All Rights Reserved.</p>
+        <footer class="fixed bottom-0 w-full p-4 text-center bg-black bg-opacity-80" style="color: #B4941F;">
+            <p class="text-xs md:text-sm">Wooooosky is a registered trademark and property of Ric Flair & Stone Camp Distribution. All Rights Reserved.</p>
         </footer>
     </div>
 
@@ -268,11 +285,6 @@
                 age--;
             }
             
-            // Debug logging
-            console.log('Today:', today.toISOString());
-            console.log('Birth date:', birthDateObj.toISOString());
-            console.log('Age calculated:', age);
-            
             return age;
         }
 
@@ -283,6 +295,27 @@
             // Add event listeners for month and year changes
             document.getElementById('month').addEventListener('change', updateDays);
             document.getElementById('year').addEventListener('change', updateDays);
+
+            // Check if user is already verified
+            if (localStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('ageVerification').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }
+
+            // Handle mobile menu toggle
+            document.getElementById('menuButton').addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.getElementById('mobileMenuItems').classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const mobileMenu = document.getElementById('mobileMenuItems');
+                const menuButton = document.getElementById('menuButton');
+                if (!menuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
         });
 
         // Form submission
@@ -301,9 +334,7 @@
             const birthDate = `${year}-${month}-${day}`;
             const age = calculateAge(birthDate);
             
-            console.log('Checking age:', age);
             if (age >= 21) {
-                console.log('Access granted: User is 21 or older');
                 if (document.getElementById('rememberMe').checked) {
                     localStorage.setItem('ageVerified', 'true');
                 }
